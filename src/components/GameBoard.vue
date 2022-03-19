@@ -2,7 +2,7 @@
   <div class="board-wrapper">
     <div class="board">
       <BoardItem
-          v-for="field in fields" :key="'item-' + field.id"
+          v-for="field in fields" :field="field" :key="'item-' + field.id"
       />
     </div>
     <p class="level">Level: <strong>{{ level }}</strong></p>
@@ -40,7 +40,10 @@ export default {
     }
     onBeforeMount(init);
     return {
-      level, fields, init
+      number,
+      level,
+      fields,
+      init
     }
   },
   methods: {
