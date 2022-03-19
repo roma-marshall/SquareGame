@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <img class="logo" alt="Vue logo" src="./assets/logo.png">
-    <h1>The Game in Vuejs3</h1>
+    <h1>The Game using Vuejs3</h1>
     <p>Remember and open all the green fields</p>
     <GameBoard />
   </div>

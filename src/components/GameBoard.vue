@@ -2,7 +2,10 @@
   <div class="board-wrapper">
     <div class="board">
       <BoardItem
-          v-for="field in fields" :field="field" :key="'item-' + field.id"
+          :preview="preview"
+          v-for="field in fields"
+          :field="field"
+          :key="'item-' + field.id"
       />
     </div>
     <p class="level">Level: <strong>{{ level }}</strong></p>
@@ -28,13 +31,14 @@ export default {
   setup() {
     const number = 25;
     const {level, fields, init} = useGameInit(number);
-    const {start} = useGameStart(init, fields, level, number);
+    const {start, preview} = useGameStart(init, fields, level, number);
     return {
       number,
       level,
       fields,
       init,
-      start
+      start,
+      preview
     }
   }
 }
