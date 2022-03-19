@@ -26,8 +26,14 @@ export default {
   setup(props) {
     const getBoardItemClasses = computed(() => {
       let classes = 'item ';
-      if (props.field.value === FIELD.FILLED && props.gameStatus === GAME_STATUS.PREVIEW || props.field.clicked) {
-        classes += 'active';
+      if (props.field.value === FIELD.FILLED
+          && props.gameStatus === GAME_STATUS.PREVIEW
+          || props.field.clicked
+          && props.field.value === FIELD.FILLED) {
+        classes += ' active';
+      }
+      if (props.field.clicked && props.field.value === FIELD.EMPTY) {
+        classes += ' error';
       }
       return classes
     });
@@ -60,6 +66,11 @@ export default {
 
 .item.active {
   background: #3FB883;
+  transform: rotateX(180deg);
+}
+
+.item.error {
+  background: #ff000055;
   transform: rotateX(180deg);
 }
 </style>

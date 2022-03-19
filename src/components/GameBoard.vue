@@ -38,7 +38,7 @@ export default {
     const gameStatus = ref(GAME_STATUS.NONE);
     const {level, fields, init} = useGameInit(number);
     const {start, isStarted} = useGameStart(init, fields, level, number, gameStatus);
-    const {selectField} = useGameProcess(fields);
+    const {selectField} = useGameProcess(fields, gameStatus, level);
     return {
       number,
       level,
