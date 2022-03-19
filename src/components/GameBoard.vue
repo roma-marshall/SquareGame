@@ -6,6 +6,7 @@
           v-for="field in fields"
           :field="field"
           :key="'item-' + field.id"
+          @selectField="selectField($event)"
       />
     </div>
     <p class="level">Level: <strong>{{ level }}</strong></p>
@@ -23,6 +24,7 @@
 import BoardItem from "@/components/BoardItem";
 import useGameInit from "@/components/composables/useGameInit";
 import useGameStart from "@/components/composables/useGameStart";
+import useGameProcess from "@/components/composables/useGameProcess";
 import {ref} from "vue";
 import {GAME_STATUS} from "@/constants";
 
@@ -36,6 +38,7 @@ export default {
     const gameStatus = ref(GAME_STATUS.NONE);
     const {level, fields, init} = useGameInit(number);
     const {start, isStarted} = useGameStart(init, fields, level, number, gameStatus);
+    const {selectField} = useGameProcess(fields);
     return {
       number,
       level,
@@ -43,7 +46,8 @@ export default {
       init,
       start,
       gameStatus,
-      isStarted
+      isStarted,
+      selectField
     }
   }
 }

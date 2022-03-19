@@ -1,5 +1,9 @@
 <template>
-  <span :class="getBoardItemClasses"></span>
+  <span
+      :class="getBoardItemClasses"
+      @click="select(field.id)"
+  >
+  </span>
 </template>
 
 <script>
@@ -22,13 +26,20 @@ export default {
   setup(props) {
     const getBoardItemClasses = computed(() => {
       let classes = 'item ';
-      if (props.field.value === FIELD.FILLED && props.gameStatus === GAME_STATUS.PREVIEW) {
+      if (props.field.value === FIELD.FILLED && props.gameStatus === GAME_STATUS.PREVIEW || props.field.clicked) {
         classes += 'active';
       }
       return classes
     });
     return {
       getBoardItemClasses
+    }
+  },
+  methods: {
+    select(id) {
+      if (this.gameStatus === GAME_STATUS.STARTED) {
+        this.$emit('selectField', id);
+      }
     }
   }
 }

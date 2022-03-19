@@ -9,11 +9,11 @@ export default function useGameInit(number) {
         for (let i = 0; i < number; i++) {
             fields.value.push({
                 id: i,
-                click: false,
+                clicked: false,
                 value: FIELD.EMPTY
             });
         }
-    }
+    };
     onBeforeMount(init);
     return {
         level,
