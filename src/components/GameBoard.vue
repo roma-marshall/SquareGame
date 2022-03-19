@@ -10,8 +10,6 @@
       />
     </div>
     <p class="level">Level: <strong>{{ level }}</strong></p>
-    <p class="win" v-if="isWin">Congrats 🎉 <br /> The next level is coming up...</p>
-    <p class="fail" v-if="isFail">You lose 🙁️ <br /> Try again.</p>
     <button
         class="btn"
         @click="start"
@@ -19,6 +17,8 @@
     >
       Play
     </button>
+    <p class="win" v-if="isWin">Congrats 🎉 <br /> The next level is coming up...</p>
+    <p class="fail" v-if="isFail">You lose 🙁️ <br /> Try again.</p>
   </div>
 </template>
 
