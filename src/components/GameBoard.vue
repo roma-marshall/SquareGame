@@ -2,7 +2,7 @@
   <div class="board-wrapper">
     <div class="board">
       <BoardItem
-          :preview="preview"
+          :game-status="gameStatus"
           v-for="field in fields"
           :field="field"
           :key="'item-' + field.id"
@@ -12,6 +12,7 @@
     <button
         class="btn"
         @click="start"
+        :disabled="!isStarted"
     >
       Play
     </button>
@@ -22,6 +23,8 @@
 import BoardItem from "@/components/BoardItem";
 import useGameInit from "@/components/composables/useGameInit";
 import useGameStart from "@/components/composables/useGameStart";
+import {ref} from "vue";
+import {GAME_STATUS} from "@/constants";
 
 export default {
   name: 'GameBoard',
@@ -30,15 +33,17 @@ export default {
   },
   setup() {
     const number = 25;
+    const gameStatus = ref(GAME_STATUS.NONE);
     const {level, fields, init} = useGameInit(number);
-    const {start, preview} = useGameStart(init, fields, level, number);
+    const {start, isStarted} = useGameStart(init, fields, level, number, gameStatus);
     return {
       number,
       level,
       fields,
       init,
       start,
-      preview
+      gameStatus,
+      isStarted
     }
   }
 }
@@ -46,7 +51,7 @@ export default {
 
 <style scoped>
 .board-wrapper {
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 }
 
 .board {
@@ -69,6 +74,9 @@ export default {
 
 .btn:hover {
   background: rgba(63, 184, 131, 0.85);
+}
 
+.btn:disabled {
+  opacity: 0.5;
 }
 </style>

@@ -1,8 +1,11 @@
 <template>
-  <span :class="'item ' + ((field.value === 1 && preview) ? 'item-active' : '')"></span>
+  <span :class="getBoardItemClasses"></span>
 </template>
 
 <script>
+import {GAME_STATUS, FIELD} from "@/constants";
+import {computed} from "vue";
+
 export default {
   name: 'BoardItem',
   props: {
@@ -10,10 +13,22 @@ export default {
       type: Object,
       required: true
     },
-    preview: {
-      type: Boolean,
+    gameStatus: {
+      type: Number,
       required: false,
-      default: false
+      default: GAME_STATUS.NONE
+    }
+  },
+  setup(props) {
+    const getBoardItemClasses = computed(() => {
+      let classes = 'item ';
+      if (props.field.value === FIELD.FILLED && props.gameStatus === GAME_STATUS.PREVIEW) {
+        classes += 'active';
+      }
+      return classes
+    });
+    return {
+      getBoardItemClasses
     }
   }
 }
@@ -31,7 +46,8 @@ export default {
   transition: 0.4s;
   transform-style: preserve-3d;
 }
-.item-active {
+
+.item.active {
   background: #3FB883;
   transform: rotateX(180deg);
 }

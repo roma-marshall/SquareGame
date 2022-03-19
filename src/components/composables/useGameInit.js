@@ -1,7 +1,8 @@
 import {onBeforeMount, ref} from "vue";
+import {FIELD, LEVEL} from "@/constants";
 
 export default function useGameInit(number) {
-    let level = ref(3);
+    let level = ref(LEVEL);
     let fields = ref([]);
     const init = () => {
         fields.value = [];
@@ -9,7 +10,7 @@ export default function useGameInit(number) {
             fields.value.push({
                 id: i,
                 click: false,
-                value: 0
+                value: FIELD.EMPTY
             });
         }
     }
