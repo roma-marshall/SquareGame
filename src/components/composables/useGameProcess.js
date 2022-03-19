@@ -1,5 +1,5 @@
 import {DEFAULT_LEVEL, FIELD, GAME_SPEED, GAME_STATUS} from "@/constants";
-import {nextTick} from "vue";
+import {computed, nextTick} from "vue";
 
 export default function useGameProcess(fields, gameStatus, level, start) {
     const selectField = (id) => {
@@ -37,7 +37,15 @@ export default function useGameProcess(fields, gameStatus, level, start) {
             start();
         }, GAME_SPEED);
     };
+    const isWin = computed(() => {
+        return gameStatus.value === GAME_STATUS.WIN;
+    });
+    const isFail = computed(() => {
+        return gameStatus.value === GAME_STATUS.FAIL;
+    });
     return {
-        selectField
+        selectField,
+        isWin,
+        isFail
     }
 }

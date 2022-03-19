@@ -10,6 +10,8 @@
       />
     </div>
     <p class="level">Level: <strong>{{ level }}</strong></p>
+    <p class="win" v-if="isWin">Congrats 🎉 <br /> The next level is coming up...</p>
+    <p class="fail" v-if="isFail">You lose 🙁️ <br /> Try again.</p>
     <button
         class="btn"
         @click="start"
@@ -38,7 +40,7 @@ export default {
     const gameStatus = ref(GAME_STATUS.NONE);
     const {level, fields, init} = useGameInit(number);
     const {start, isStarted} = useGameStart(init, fields, level, number, gameStatus);
-    const {selectField} = useGameProcess(fields, gameStatus, level, start);
+    const {selectField, isWin, isFail} = useGameProcess(fields, gameStatus, level, start);
     return {
       number,
       level,
@@ -47,7 +49,9 @@ export default {
       start,
       gameStatus,
       isStarted,
-      selectField
+      selectField,
+      isWin,
+      isFail
     }
   }
 }
