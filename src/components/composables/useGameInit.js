@@ -1,8 +1,8 @@
 import {onBeforeMount, ref} from "vue";
-import {FIELD, LEVEL} from "@/constants";
+import {FIELD, DEFAULT_LEVEL} from "@/constants";
 
 export default function useGameInit(number) {
-    let level = ref(LEVEL);
+    let level = ref(DEFAULT_LEVEL);
     let fields = ref([]);
     const init = () => {
         fields.value = [];

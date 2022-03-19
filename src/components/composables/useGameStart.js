@@ -1,4 +1,4 @@
-import {FIELD, GAME_STATUS} from "@/constants";
+import {FIELD, GAME_STATUS, GAME_SPEED} from "@/constants";
 import {computed} from "vue";
 
 export default function useGameStart(init, fields, level, number, gameStatus) {
@@ -18,7 +18,7 @@ export default function useGameStart(init, fields, level, number, gameStatus) {
         }
         setTimeout(() => {
             gameStatus.value = GAME_STATUS.STARTED;
-        }, 2000);
+        }, GAME_SPEED);
     };
     const rand = (min, max) => {
         return Math.floor(Math.random() * (max - min)) + min;
