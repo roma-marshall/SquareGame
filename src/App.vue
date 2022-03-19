@@ -1,26 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <img class="logo" alt="Vue logo" src="./assets/logo.png">
+    <h1>The Game in Vuejs3</h1>
+    <p>Remember and open all the green fields</p>
+    <GameBoard />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GameBoard from "@/components/GameBoard";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    GameBoard
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style scoped>
+.app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 40px;
+}
+.logo {
+  width: 100px;
 }
 </style>
