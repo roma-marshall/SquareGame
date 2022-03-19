@@ -17,7 +17,8 @@
 
 <script>
 import BoardItem from "@/components/BoardItem";
-import {ref, onBeforeMount} from "vue";
+import useGameInit from "@/components/composables/useGameInit";
+import useGameStart from "@/components/composables/useGameStart";
 
 export default {
   name: 'GameBoard',
@@ -25,44 +26,15 @@ export default {
     BoardItem
   },
   setup() {
-    let level = ref(3);
-    let fields = ref([]);
     const number = 25;
-    const init = () => {
-      fields.value = [];
-      for (let i = 0; i < number; i++) {
-        fields.value.push({
-          id: i,
-          click: false,
-          value: 0
-        });
-      }
-    }
-    onBeforeMount(init);
+    const {level, fields, init} = useGameInit(number);
+    const {start} = useGameStart(init, fields, level, number);
     return {
       number,
       level,
       fields,
-      init
-    }
-  },
-  methods: {
-    start() {
-      this.init();
-      this.prepareGame();
-    },
-    prepareGame() {
-      for (let i = 0; i < this.level; i++) {
-        const index = this.rand(0, this.number - 1);
-        if (this.fields[index].value !== 1) {
-          this.fields[index].value = 1;
-        } else {
-          i--;
-        }
-      }
-    },
-    rand(min, max) {
-      return Math.floor(Math.random() * (max - min)) + min;
+      init,
+      start
     }
   }
 }
