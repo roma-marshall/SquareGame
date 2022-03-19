@@ -1,5 +1,5 @@
-import {onBeforeMount, ref} from "vue";
-import {FIELD, DEFAULT_LEVEL} from "@/constants";
+import {onBeforeMount, ref, watch} from "vue";
+import {FIELD, DEFAULT_LEVEL, MAX_LEVEL} from "@/constants";
 
 export default function useGameInit(number) {
     let level = ref(DEFAULT_LEVEL);
@@ -14,6 +14,11 @@ export default function useGameInit(number) {
             });
         }
     };
+    watch(level, (newLevel) => {
+        if (newLevel > MAX_LEVEL) {
+            level.value = MAX_LEVEL;
+        }
+    })
     onBeforeMount(init);
     return {
         level,

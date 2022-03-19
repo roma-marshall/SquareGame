@@ -1,6 +1,7 @@
-import {DEFAULT_LEVEL, FIELD, GAME_STATUS} from "@/constants";
+import {DEFAULT_LEVEL, FIELD, GAME_SPEED, GAME_STATUS} from "@/constants";
+import {nextTick} from "vue";
 
-export default function useGameProcess(fields, gameStatus, level) {
+export default function useGameProcess(fields, gameStatus, level, start) {
     const selectField = (id) => {
         const index = fields.value.findIndex((field) => {
             return field.id === id;
@@ -12,7 +13,7 @@ export default function useGameProcess(fields, gameStatus, level) {
     };
     const checkGame = () => {
         const errorIndex = fields.value.findIndex(field => {
-            return field.clicked && f ield.value === FIELD.EMPTY;
+            return field.clicked && field.value === FIELD.EMPTY;
         });
         if (errorIndex > -1) {
             setGameOver();
@@ -30,6 +31,11 @@ export default function useGameProcess(fields, gameStatus, level) {
     };
     const setWin = () => {
         gameStatus.value = GAME_STATUS.WIN;
+        setTimeout(async () => {
+            level.value++;
+            await nextTick();
+            start();
+        }, GAME_SPEED);
     };
     return {
         selectField

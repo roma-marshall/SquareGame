@@ -24,7 +24,7 @@ export default function useGameStart(init, fields, level, number, gameStatus) {
         return Math.floor(Math.random() * (max - min)) + min;
     };
     const isStarted = computed(() => {
-        return gameStatus.value !== GAME_STATUS.PREVIEW;
+        return gameStatus.value !== GAME_STATUS.PREVIEW && gameStatus.value !== GAME_STATUS.WIN;
     });
     return {
         start,
