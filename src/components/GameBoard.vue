@@ -6,10 +6,14 @@
       />
     </div>
     <p class="level">Level: <strong>{{ level }}</strong></p>
-    <button class="btn">Play</button>
+    <button
+        class="btn"
+        @click="start"
+    >
+      Play
+    </button>
   </div>
 </template>
-
 
 <script>
 import BoardItem from "@/components/BoardItem";
@@ -24,8 +28,8 @@ export default {
     let level = ref(3);
     let fields = ref([]);
     const number = 25;
-
     const init = () => {
+      fields.value = [];
       for (let i = 0; i < number; i++) {
         fields.value.push({
           id: i,
@@ -34,11 +38,28 @@ export default {
         });
       }
     }
-
     onBeforeMount(init);
-
     return {
       level, fields, init
+    }
+  },
+  methods: {
+    start() {
+      this.init();
+      this.prepareGame();
+    },
+    prepareGame() {
+      for (let i = 0; i < this.level; i++) {
+        const index = this.rand(0, this.number - 1);
+        if (this.fields[index].value !== 1) {
+          this.fields[index].value = 1;
+        } else {
+          i--;
+        }
+      }
+    },
+    rand(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
     }
   }
 }
